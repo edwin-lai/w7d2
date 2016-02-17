@@ -14,7 +14,6 @@ var TodoStore = {
 
   fetch: function(){
     $.get('api/todos', {}, function(todos){
-      console.log(todos);
       _todos = todos;
       TodoStore.changed();
     });
@@ -35,7 +34,7 @@ var TodoStore = {
         url: 'api/todos/' + id,
         data: toDo,
         success: function(){
-          return 'delete succeeded';
+          TodoStore.changed();
         },
         type: 'DELETE',
         dataType: 'json'
@@ -75,7 +74,8 @@ var TodoStore = {
         url: 'api/todos/' + id,
         data: toDo,
         success: function(){
-          return 'patch succeeded';
+          this.changed();
+
         },
         type: 'PATCH',
         dataType: 'json'
